@@ -34,6 +34,7 @@
                 </span>
                 <br>
                 <br>
+                <p>Correct Answer: {{generate}}</p>
                 <div>
                     <br>
                     <div class="form-inline" style="margin-left: 8%">
@@ -63,7 +64,7 @@
                     <br>
                     <p><b>{{comment}}</b></p>
                 </div>
-                <span v-if="statusAnswer==1">
+                <span v-if="statusAnswer==1 && statusEND==0">
                     <button class="btn btn-secondary" @click="lanjut">Try Again</button>
                 </span>
                 <span v-if="statusEND==1">
