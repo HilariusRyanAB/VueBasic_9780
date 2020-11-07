@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TGS8_A_9780</title>
+        <meta content="" name="descriptison">
+        <meta content="" name="keywords">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/3dae3f64d9.js" crossorigin="anonymous"></script>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-light custom-navbar">
+            <div class="container bg-secondary">
+                <a class="navbar-brand text-white" href="TGS.html"><h2>TO DO LIST <i class="fas fa-edit text-dark"></i></h2></a>
+            </div>
+        </nav>
+        <div id="app" align="center" class="container my-2" style="width: 600px">
+            <span v-if="status_input==1">
+                <div class="overflow-auto" style="max-width: 600px; max-height: 195px">
+                    <span v-for="(item, index) in todoList_array" :key="index">
+                        <div class="border border-dark rounded my-2" style="padding: 10px;" align="justify">
+                            <div align="right">
+                                <i class="far fa-times-circle" @click="hapus(index)"></i>
+                            </div>
+                            <span v-if="item.penting==penting">
+                                <p class="text-danger"><b>{{item.penting}}</b></p>
+                            </span>
+                            <span v-if="item.penting==biasa">
+                                <p class="text-primary"><b>{{item.penting}}</b></p>
+                            </span>
+                            <span v-if="item.penting==tidakPenting">
+                                <p class="text-success"><b>{{item.penting}}</b></p>
+                            </span>
+                            <h2><b>{{item.kerja}}</b></h2>
+                            <p>{{item.catatan}}</p>
+                        </div>
+                    </span>
+                </div>
+            </span>
+            <div align="justify" class="border border-dark rounded" style="padding: 20px">
+                <div>
+                    <label><b>Apa yang Mau Kamu Kerjakan?</b></label>
+                    <input type="text" class="form-control container" v-model="kerja_input">
+                </div>
+                <div class="my-4">
+                    <label><b>Penting Gak?</b></label>
+                    <select class="form-control" v-model="penting_input">
+                        <option value="Penting">{{penting}}</option>
+                        <option value="Biasa">{{biasa}}</o  ption>
+                        <option value="Tidak Penting">{{tidakPenting}}</option>
+                    </select>
+                </div>
+                <div class="my-4">
+                    <label><b>Ada Catatan Penting?</b></label>
+                    <textarea class="form-control" type="text" rows="5" v-model="catatan_input"></textarea>
+                </div>
+                <div class="col" style="margin-left: -4%">
+                    <button class="btn btn-danger mx-2" @click="reset">Reset</button>
+                    <button class="btn btn-success" @click="inputData">Simpan</button>
+                </div>
+                <span v-if="cek_input==1" align="center">
+                    <div class="my-3">
+                        <p class="text-danger"><b>{{alert}}</b></p>
+                    </div>
+                </span>
+            </div>
+            <footer class="my-3">
+                <b>{{footer}}</b>
+            </footer>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:"#app",
+            data:
+            {
+                status_input: 0,
+                todoList_array: [],
+                kerja_input: '',
+                penting_input: '',
+                catatan_input: '',
+                sample: '',
+                penting: 'Penting',
+                biasa: 'Biasa',
+                tidakPenting: 'Tidak Penting',
+                cek_input: 0,
+                alert: 'DATA ADA YANG KOSONG !!!!',
+                footer: 'Hilarius Ryan A B | 180709780 | PAW A',
+            },
+            methods: 
+            {
+                reset()
+                {
+                    this.kerja_input = '';
+                    this.penting_input = '';
+                    this.catatan_input = '';
+                    this.status_input = 0;
+                    this.cek_input = 0;
+                    this.todoList_array = [];
+                },
+                simpan()
+                {
+                    this.todoList_array.push({
+                        kerja : this.kerja_input,
+                        penting : this.penting_input,
+                        catatan : this.catatan_input,
+                    });
+                    this.status_input = 1;
+                    this.kerja_input = '';
+                    this.penting_input = '';
+                    this.catatan_input = '';
+                },
+                hapus(index)
+                {
+                    this.todoList_array.splice(index, 1);
+                },
+                inputData()
+                {
+                    if(this.kerja_input == this.sample)
+                    {
+                        this.cek_input = 1;
+                        this.kerja_input = '';
+                        this.penting_input = '';
+                        this.catatan_input = '';
+                    }
+                    else
+                    {
+                        this.cek_input = 0;
+                        this.simpan();
+                    }
+                },
+            }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</html>
