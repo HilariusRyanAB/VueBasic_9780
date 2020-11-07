@@ -10,64 +10,73 @@
         <script src="vue.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-light custom-navbar">
-            <div class="container bg-secondary">
-                <a class="navbar-brand text-white" href="TGS.html"><h2>TO DO LIST <i class="fas fa-edit text-dark"></i></h2></a>
-            </div>
-        </nav>
-        <div id="app" align="center" class="container my-2" style="width: 600px">
-            <span v-if="status_input==1">
-                <div class="overflow-auto" style="max-width: 600px; max-height: 195px">
-                    <span v-for="(item, index) in todoList_array" :key="index">
-                        <div class="border border-dark rounded my-2" style="padding: 10px;" align="justify">
-                            <div align="right">
-                                <i class="far fa-times-circle" @click="hapus(index)"></i>
-                            </div>
-                            <span v-if="item.penting==pilihan_penting.penting">
-                                <p class="text-danger"><b>{{item.penting}}</b></p>
+        <div class="bg-secondary">
+            <nav class="navbar navbar-light custom-navbar">
+                <div class="container bg-info">
+                    <a class="navbar-brand text-light" href="TGS.html"><h2>TO DO LIST <i class="fas fa-edit text-dark"></i></h2></a>
+                </div>
+            </nav>
+            <div id="app" align="center" class="container my-2" style="width: 600px">
+                <div class="bg-light rounded" style="padding: 10px">
+                    <h3><b>LIST</b></h3>
+                    <div class="jumbotron rounded" style="padding: 10px">
+                        <div class="overflow-auto" style="max-width: 600px; max-height: 500px; padding: 5px">
+                            <span v-for="(item, index) in todoList_array" :key="index">
+                                <div class="border border-dark rounded my-3" style="padding: 10px;" align="justify">
+                                    <div align="right">
+                                        <i class="far fa-times-circle" @click="hapus(index)"></i>
+                                    </div>
+                                    <span v-if="item.penting == pilihan_penting.penting">
+                                        <p class="text-danger"><b>{{item.penting}}</b></p>
+                                    </span>
+                                    <span v-if="item.penting == pilihan_penting.biasa">
+                                        <p class="text-primary"><b>{{item.penting}}</b></p>
+                                    </span>
+                                    <span v-if="item.penting == pilihan_penting.tidakPenting">
+                                        <p class="text-success"><b>{{item.penting}}</b></p>
+                                    </span>
+                                    <h2><b>{{item.kerja}}</b></h2>
+                                    <p>{{item.catatan}}</p>
+                                </div>
                             </span>
-                            <span v-if="item.penting==pilihan_penting.biasa">
-                                <p class="text-primary"><b>{{item.penting}}</b></p>
-                            </span>
-                            <span v-if="item.penting==pilihan_penting.tidakPenting">
-                                <p class="text-success"><b>{{item.penting}}</b></p>
-                            </span>
-                            <h2><b>{{item.kerja}}</b></h2>
-                            <p>{{item.catatan}}</p>
                         </div>
-                    </span>
-                </div>
-            </span>
-            <div align="justify" class="border border-dark rounded" style="padding: 20px">
-                <div>
-                    <label><b>Apa yang Mau Kamu Kerjakan?</b></label>
-                    <input type="text" class="form-control" v-model="input.kerja_input">
-                </div>
-                <div class="my-4">
-                    <label><b>Penting Gak?</b></label>
-                    <select class="form-control" v-model="input.penting_input">
-                        <option value="Penting">{{pilihan_penting.penting}}</option>
-                        <option value="Biasa">{{pilihan_penting.biasa}}</option>
-                        <option value="Tidak Penting">{{pilihan_penting.tidakPenting}}</option>
-                    </select>
-                </div>
-                <div class="my-4">
-                    <label><b>Ada Catatan Penting?</b></label>
-                    <textarea class="form-control" type="text" rows="5" v-model="input.catatan_input"></textarea>
-                </div>
-                <div class="col" style="margin-left: -4%">
-                    <button class="btn btn-danger mx-2" @click="reset">Reset</button>
-                    <button class="btn btn-success" @click="inputData">Simpan</button>
-                </div>
-                <span v-if="cek_input==1" align="center">
-                    <div class="my-3">
-                        <p class="text-danger"><b>{{alert}}</b></p>
                     </div>
-                </span>
+                </div>
+                <div class="bg-light rounded my-4" style="padding: 10px">
+                    <h3><b>FORM</b></h3>
+                    <div align="justify" class="jumbotron rounded my-3" style="padding: 20px">
+                        <div>
+                            <label><b>Apa yang Mau Kamu Kerjakan?</b></label>
+                            <input type="text" class="form-control" v-model="input.kerja_input">
+                        </div>
+                        <div class="my-4">
+                            <label><b>Penting Gak?</b></label>
+                            <select class="form-control" v-model="input.penting_input">
+                                <option value="Penting">{{pilihan_penting.penting}}</option>
+                                <option value="Biasa">{{pilihan_penting.biasa}}</option>
+                                <option value="Tidak Penting">{{pilihan_penting.tidakPenting}}</option>
+                            </select>
+                        </div>
+                        <div class="my-4">
+                            <label><b>Ada Catatan Penting?</b></label>
+                            <textarea class="form-control" type="text" rows="5" v-model="input.catatan_input"></textarea>
+                        </div>
+                        <div class="col" style="margin-left: -4%">
+                            <button class="btn btn-danger mx-2" @click="reset">Reset</button>
+                            <button class="btn btn-success" @click="inputData">Simpan</button>
+                        </div>
+                        <span v-if="cek_input==1" align="center">
+                            <div class="my-3">
+                                <p class="text-danger"><b>{{alert}}</b></p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <footer class="my-2">
+                    <h5><b>{{footer.nama}} | {{footer.npm}} | {{footer.kelas}}</b></h5>
+                </footer>
+                <div class="my-2 bg-secondary"><h5 class="text-secondary">-</h5></div>
             </div>
-            <footer class="my-3">
-                <b>{{footer.nama}} | {{footer.npm}} | {{footer.kelas}}</b>
-            </footer>
         </div>
     </body>
     <script>
@@ -75,8 +84,12 @@
             el:"#app",
             data:
             {
-                status_input: 0,
-                todoList_array: [],
+                todoList_array:
+                [
+                    {kerja: 'Makan Pagi',penting: 'Penting', catatan: 'Pukul 10:00 WIB - 10:30 WIB'},
+                    {kerja: 'Tidur Siang', penting: 'Biasa', catatan: 'Pukul 10:30 WIB - 13:00 WIB'},
+                    {kerja: 'Belajar', penting: 'Tidak Penting', catatan: 'Pukul 13:00 WIB - 14:30 WIB'},
+                ],
                 input:
                 {
                     kerja_input: '',
@@ -106,40 +119,36 @@
                     this.input.kerja_input = '';
                     this.input.penting_input = '';
                     this.input.catatan_input = '';
-                    this.status_input = 0;
                     this.cek_input = 1;
-                    this.todoList_array = [];
-                    this.alert = 'DATA BERHASIL DI RESET!!!!'
+                    this.alert = 'DATA BERHASIL DI RESET!!!!';
                 },
                 simpan()
                 {
+                    this.alert = 'DATA BERHASIL DI DISIMPAN!!!!';
                     this.todoList_array.push({
-                        kerja : this.input.kerja_input,
-                        penting : this.input.penting_input,
-                        catatan : this.input.catatan_input,
+                        kerja: this.input.kerja_input,
+                        penting: this.input.penting_input,
+                        catatan: this.input.catatan_input,
                     });
-                    this.status_input = 1;
                     this.input.kerja_input = '';
                     this.input.penting_input = '';
                     this.input.catatan_input = '';
+                    this.cek_input = 1;
                 },
                 hapus(index)
                 {
                     this.todoList_array.splice(index, 1);
+                    this.cek_input = 0;
                 },
                 inputData()
                 {
-                    if(this.input.kerja_input == this.sample || this.input.penting_input == this.sample)
+                    if(this.input.kerja_input == this.sample || this.input.penting_input == this.sample || this.input.catatan_input == this.sample)
                     {
                         this.cek_input = 1;
-                        this.input.kerja_input = '';
-                        this.input.penting_input = '';
-                        this.input.catatan_input = '';
                         this.alert = 'DATA ADA YANG KOSONG !!!!';
                     }
                     else
                     {
-                        this.cek_input = 0;
                         this.simpan();
                     }
                 },
