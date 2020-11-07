@@ -23,13 +23,13 @@
                             <div align="right">
                                 <i class="far fa-times-circle" @click="hapus(index)"></i>
                             </div>
-                            <span v-if="item.penting==penting">
+                            <span v-if="item.penting==pilihan_penting.penting">
                                 <p class="text-danger"><b>{{item.penting}}</b></p>
                             </span>
-                            <span v-if="item.penting==biasa">
+                            <span v-if="item.penting==pilihan_penting.biasa">
                                 <p class="text-primary"><b>{{item.penting}}</b></p>
                             </span>
-                            <span v-if="item.penting==tidakPenting">
+                            <span v-if="item.penting==pilihan_penting.tidakPenting">
                                 <p class="text-success"><b>{{item.penting}}</b></p>
                             </span>
                             <h2><b>{{item.kerja}}</b></h2>
@@ -41,19 +41,19 @@
             <div align="justify" class="border border-dark rounded" style="padding: 20px">
                 <div>
                     <label><b>Apa yang Mau Kamu Kerjakan?</b></label>
-                    <input type="text" class="form-control container" v-model="kerja_input">
+                    <input type="text" class="form-control" v-model="input.kerja_input">
                 </div>
                 <div class="my-4">
                     <label><b>Penting Gak?</b></label>
-                    <select class="form-control" v-model="penting_input">
-                        <option value="Penting">{{penting}}</option>
-                        <option value="Biasa">{{biasa}}</o  ption>
-                        <option value="Tidak Penting">{{tidakPenting}}</option>
+                    <select class="form-control" v-model="input.penting_input">
+                        <option value="Penting">{{pilihan_penting.penting}}</option>
+                        <option value="Biasa">{{pilihan_penting.biasa}}</option>
+                        <option value="Tidak Penting">{{pilihan_penting.tidakPenting}}</option>
                     </select>
                 </div>
                 <div class="my-4">
                     <label><b>Ada Catatan Penting?</b></label>
-                    <textarea class="form-control" type="text" rows="5" v-model="catatan_input"></textarea>
+                    <textarea class="form-control" type="text" rows="5" v-model="input.catatan_input"></textarea>
                 </div>
                 <div class="col" style="margin-left: -4%">
                     <button class="btn btn-danger mx-2" @click="reset">Reset</button>
@@ -66,7 +66,7 @@
                 </span>
             </div>
             <footer class="my-3">
-                <b>{{footer}}</b>
+                <b>{{footer.nama}} | {{footer.npm}} | {{footer.kelas}}</b>
             </footer>
         </div>
     </body>
@@ -77,24 +77,35 @@
             {
                 status_input: 0,
                 todoList_array: [],
-                kerja_input: '',
-                penting_input: '',
-                catatan_input: '',
+                input:
+                {
+                    kerja_input: '',
+                    penting_input: '',
+                    catatan_input: '',
+                },
                 sample: '',
-                penting: 'Penting',
-                biasa: 'Biasa',
-                tidakPenting: 'Tidak Penting',
+                pilihan_penting:
+                {
+                    penting: 'Penting',
+                    biasa: 'Biasa',
+                    tidakPenting: 'Tidak Penting',
+                },
                 cek_input: 0,
                 alert: '',
-                footer: 'Hilarius Ryan A B | 180709780 | PAW A',
+                footer:
+                {
+                    nama: 'Hilarius Ryan Auxilio Benedecas',
+                    npm: '180709780',
+                    kelas: 'PAW A',
+                }, 
             },
             methods: 
             {
                 reset()
                 {
-                    this.kerja_input = '';
-                    this.penting_input = '';
-                    this.catatan_input = '';
+                    this.input.kerja_input = '';
+                    this.input.penting_input = '';
+                    this.input.catatan_input = '';
                     this.status_input = 0;
                     this.cek_input = 1;
                     this.todoList_array = [];
@@ -103,14 +114,14 @@
                 simpan()
                 {
                     this.todoList_array.push({
-                        kerja : this.kerja_input,
-                        penting : this.penting_input,
-                        catatan : this.catatan_input,
+                        kerja : this.input.kerja_input,
+                        penting : this.input.penting_input,
+                        catatan : this.input.catatan_input,
                     });
                     this.status_input = 1;
-                    this.kerja_input = '';
-                    this.penting_input = '';
-                    this.catatan_input = '';
+                    this.input.kerja_input = '';
+                    this.input.penting_input = '';
+                    this.input.catatan_input = '';
                 },
                 hapus(index)
                 {
@@ -118,12 +129,12 @@
                 },
                 inputData()
                 {
-                    if(this.kerja_input == this.sample || this.penting_input == this.sample)
+                    if(this.input.kerja_input == this.sample || this.input.penting_input == this.sample)
                     {
                         this.cek_input = 1;
-                        this.kerja_input = '';
-                        this.penting_input = '';
-                        this.catatan_input = '';
+                        this.input.kerja_input = '';
+                        this.input.penting_input = '';
+                        this.input.catatan_input = '';
                         this.alert = 'DATA ADA YANG KOSONG !!!!';
                     }
                     else
