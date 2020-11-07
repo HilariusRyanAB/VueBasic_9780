@@ -85,7 +85,7 @@
                 biasa: 'Biasa',
                 tidakPenting: 'Tidak Penting',
                 cek_input: 0,
-                alert: 'DATA ADA YANG KOSONG !!!!',
+                alert: '',
                 footer: 'Hilarius Ryan A B | 180709780 | PAW A',
             },
             methods: 
@@ -96,8 +96,9 @@
                     this.penting_input = '';
                     this.catatan_input = '';
                     this.status_input = 0;
-                    this.cek_input = 0;
+                    this.cek_input = 1;
                     this.todoList_array = [];
+                    this.alert = 'DATA BERHASIL DI RESET!!!!'
                 },
                 simpan()
                 {
@@ -123,6 +124,7 @@
                         this.kerja_input = '';
                         this.penting_input = '';
                         this.catatan_input = '';
+                        this.alert = 'DATA ADA YANG KOSONG !!!!';
                     }
                     else
                     {
