@@ -17,31 +17,33 @@
                 </div>
             </nav>
             <div id="app" align="center" class="container my-2" style="width: 600px">
-                <div class="bg-light rounded" style="padding: 10px">
-                    <h3><b>LIST</b></h3>
-                    <div class="jumbotron rounded" style="padding: 10px">
-                        <div class="overflow-auto" style="max-width: 600px; max-height: 500px; padding: 5px">
-                            <span v-for="(item, index) in todoList_array" :key="index">
-                                <div class="border border-dark rounded my-3" style="padding: 10px;" align="justify">
-                                    <div align="right">
-                                        <i class="far fa-times-circle" @click="hapus(index)"></i>
+                <span v-if="jumlahData==0">
+                    <div class="bg-light rounded" style="padding: 10px">
+                        <h3><b>LIST</b></h3>
+                        <div class="jumbotron rounded" style="padding: 10px">
+                            <div class="overflow-auto" style="max-width: 600px; max-height: 500px; padding: 5px">
+                                <span v-for="(item, index) in todoList_array" :key="index">
+                                    <div class="border border-dark rounded my-3" style="padding: 10px;" align="justify">
+                                        <div align="right">
+                                            <i class="far fa-times-circle" @click="hapus(index)"></i>
+                                        </div>
+                                        <span v-if="item.penting == pilihan_penting.penting">
+                                            <p class="text-danger"><b>{{item.penting}}</b></p>
+                                        </span>
+                                        <span v-if="item.penting == pilihan_penting.biasa">
+                                            <p class="text-primary"><b>{{item.penting}}</b></p>
+                                        </span>
+                                        <span v-if="item.penting == pilihan_penting.tidakPenting">
+                                            <p class="text-success"><b>{{item.penting}}</b></p>
+                                        </span>
+                                        <h2><b>{{item.kerja}}</b></h2>
+                                        <p>{{item.catatan}}</p>
                                     </div>
-                                    <span v-if="item.penting == pilihan_penting.penting">
-                                        <p class="text-danger"><b>{{item.penting}}</b></p>
-                                    </span>
-                                    <span v-if="item.penting == pilihan_penting.biasa">
-                                        <p class="text-primary"><b>{{item.penting}}</b></p>
-                                    </span>
-                                    <span v-if="item.penting == pilihan_penting.tidakPenting">
-                                        <p class="text-success"><b>{{item.penting}}</b></p>
-                                    </span>
-                                    <h2><b>{{item.kerja}}</b></h2>
-                                    <p>{{item.catatan}}</p>
-                                </div>
-                            </span>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </span>
                 <div class="bg-light rounded my-4" style="padding: 10px">
                     <h3><b>FORM</b></h3>
                     <div align="justify" class="jumbotron rounded my-3" style="padding: 20px">
@@ -97,6 +99,7 @@
                     catatan_input: '',
                 },
                 sample: '',
+                jumlahData: 0,
                 pilihan_penting:
                 {
                     penting: 'Penting',
@@ -139,6 +142,14 @@
                 {
                     this.todoList_array.splice(index, 1);
                     this.cek_input = 0;
+                    if(this.todoList_array.length==0)
+                    {
+                        this.jumlahData = 1;
+                    }
+                    else
+                    {
+                        this.jumlahData = 0;
+                    }
                 },
                 inputData()
                 {
